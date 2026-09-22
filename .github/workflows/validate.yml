@@ -1,0 +1,62 @@
+name: Validate Scripts
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  shellcheck:
+    name: ShellCheck
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install ShellCheck
+        run: sudo apt-get update && sudo apt-get install -y shellcheck
+
+      - name: Check shell scripts
+        run: shellcheck install/*.sh uninstall/*.sh doctor/*.sh
+
+  bash-syntax:
+    name: Bash Syntax
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate Bash scripts
+        run: bash -n install/*.sh uninstall/*.sh doctor/*.sh
+
+  powershell:
+    name: PowerShell Syntax
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate PowerShell scripts
+        shell: pwsh
+        run: |
+          Get-ChildItem -Path install, uninstall, doctor -Filter *.ps1 -Recurse |
+            ForEach-Object {
+              $errors = $null
+              [System.Management.Automation.Language.Parser]::ParseFile(
+                $_.FullName,
+                [ref]$null,
+                [ref]$errors
+              )
+
+              if ($errors.Count -gt 0) {
+                Write-Error "Syntax errors found in $($_.FullName)"
+                $errors | ForEach-Object { Write-Error $_.Message }
+                exit 1
+              }
+
+              Write-Host "OK: $($_.FullName)"
+            }
