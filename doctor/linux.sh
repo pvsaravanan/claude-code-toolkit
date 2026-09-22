@@ -10,6 +10,7 @@ echo "Operating System"
 echo "----------------"
 
 if [ -f /etc/os-release ]; then
+    # shellcheck disable=SC1091
     . /etc/os-release
     echo "Distribution: ${PRETTY_NAME:-Unknown}"
 else
