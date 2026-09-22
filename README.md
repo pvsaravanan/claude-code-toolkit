@@ -1,286 +1,171 @@
-# Claude Code Toolkit
+# claude code toolkit
 
-Cross-platform scripts for installing, uninstalling, and diagnosing [Claude Code](https://docs.anthropic.com/en/docs/claude-code).
+Simple scripts to install, uninstall, and diagnose Claude Code on **macOS, Linux, and Windows**.
 
-> Independent community utility. Not affiliated with or endorsed by Anthropic.
+## Quick Start
 
-## Features
+### 1. Get the repository
 
-- Install Claude Code
-- Remove common Claude Code installations and local configuration
-- Diagnose PATH and environment issues
-- Simple, inspectable platform-specific scripts
-- GitHub Actions validation for shell and PowerShell scripts
-
-## Supported platforms
-
-| Platform | Install | Uninstall | Doctor |
-| --- | --- | --- | --- |
-| macOS | Yes | Yes | Yes |
-| Windows | Yes | Yes | Yes |
-
----
-
-# Setup
-
-You need to **download or clone this repository first**. The scripts are files inside this repository, so commands such as `./install/macos.sh` will only work after you have the repository on your computer.
-
-## Option 1: Clone with Git
-
-If Git is installed:
+Clone it:
 
 ```bash
 git clone https://github.com/YOUR_USERNAME/claude-code-toolkit.git
 cd claude-code-toolkit
 ```
 
-Replace `YOUR_USERNAME` with the GitHub username that owns the repository.
+Or download the repository as a ZIP and extract it.
 
-## Option 2: Download ZIP
+### 2. Run the script for your OS
 
-1. Open the GitHub repository.
-2. Click **Code**.
-3. Click **Download ZIP**.
-4. Extract the ZIP.
-5. Open Terminal or PowerShell.
-6. Change directory into the extracted `claude-code-toolkit` folder.
-
-For example on macOS:
+**macOS**
 
 ```bash
-cd ~/Downloads/claude-code-toolkit
+chmod +x install/macos.sh && ./install/macos.sh
 ```
 
-On Windows PowerShell:
-
-```powershell
-cd "$HOME\Downloads\claude-code-toolkit"
-```
-
-You should be in the repository root before running any of the commands below.
-
-You can verify this with:
+**Linux**
 
 ```bash
-ls
+chmod +x install/linux.sh && ./install/linux.sh
 ```
 
-or PowerShell:
+**Windows PowerShell**
 
 ```powershell
-Get-ChildItem
+Set-ExecutionPolicy -Scope Process Bypass
+.\install\windows.ps1
 ```
 
-You should see directories such as:
+### 3. Verify
 
-```text
-install
-uninstall
-doctor
-README.md
-LICENSE
+```bash
+claude --version
 ```
+
+That's it.
 
 ---
 
-# Install Claude Code
+## Install
 
-## macOS
-
-From the repository root:
+### macOS
 
 ```bash
 chmod +x install/macos.sh
 ./install/macos.sh
 ```
 
-The script uses Anthropic's official installer endpoint.
-
-After installation:
+### Linux
 
 ```bash
-claude --version
+chmod +x install/linux.sh
+./install/linux.sh
 ```
 
-Then start Claude Code:
-
-```bash
-claude
-```
-
-## Windows
-
-Open **PowerShell** in the repository root.
-
-If PowerShell blocks local scripts, allow scripts for the current PowerShell session only:
+### Windows
 
 ```powershell
 Set-ExecutionPolicy -Scope Process Bypass
-```
-
-Then run:
-
-```powershell
 .\install\windows.ps1
 ```
 
 After installation:
 
-```powershell
-claude --version
-```
-
-Then:
-
-```powershell
+```bash
 claude
 ```
 
-If `claude` is not recognized immediately after installation, close and reopen PowerShell and run `claude --version` again.
-
 ---
 
-# Uninstall Claude Code
+## Uninstall
 
-## macOS
-
-From the repository root:
+### macOS
 
 ```bash
 chmod +x uninstall/macos.sh
 ./uninstall/macos.sh
 ```
 
-The script asks for confirmation before removing files.
+### Linux
 
-It targets known Claude Code installation, configuration, cache, and log locations. It does **not** automatically modify your shell profile.
+```bash
+chmod +x uninstall/linux.sh
+./uninstall/linux.sh
+```
 
-## Windows
-
-From PowerShell:
+### Windows
 
 ```powershell
 .\uninstall\windows.ps1
 ```
 
-The script asks for confirmation before removing files.
-
-It targets known Claude Code installation, configuration, and cache locations. It does **not** automatically modify your PowerShell profile.
+The scripts ask for confirmation before removing Claude Code.
 
 ---
 
-# Diagnose an Installation
+## Diagnose
 
-If Claude Code is installed but `claude` is not working correctly, use the diagnostic scripts.
+If Claude Code isn't working as expected, run the diagnostic script for your OS.
 
-## macOS
+### macOS
 
 ```bash
 chmod +x doctor/macos.sh
 ./doctor/macos.sh
 ```
 
-## Windows
+### Linux
+
+```bash
+chmod +x doctor/linux.sh
+./doctor/linux.sh
+```
+
+### Windows
 
 ```powershell
 .\doctor\windows.ps1
 ```
 
-The diagnostic scripts report useful information such as:
-
-- Claude Code location
-- Claude Code version
-- Node.js availability
-- npm availability
-- Git availability
-- Common Claude Code paths
+The diagnostic scripts check Claude Code, PATH, Node.js, npm, Git, and common installation paths.
 
 ---
 
-# Repository Structure
+## Supported Platforms
 
-```text
-claude-code-toolkit/
-│
-├── install/
-│   ├── macos.sh
-│   └── windows.ps1
-│
-├── uninstall/
-│   ├── macos.sh
-│   └── windows.ps1
-│
-├── doctor/
-│   ├── macos.sh
-│   └── windows.ps1
-│
-├── docs/
-│   └── usage.md
-│
-├── .github/
-│   └── workflows/
-│       └── validate.yml
-│
-├── README.md
-├── LICENSE
-└── .gitignore
-```
+| Platform | Install | Uninstall | Diagnose |
+| -------- | :-----: | :-------: | :------: |
+| macOS    |    ✓    |     ✓     |     ✓    |
+| Linux    |    ✓    |     ✓     |     ✓    |
+| Windows  |    ✓    |     ✓     |     ✓    |
 
 ---
 
-# Security
+## Security
 
-**Read the scripts before executing them.**
+Review scripts before running them.
 
-This project is designed to keep the scripts small and inspectable. The uninstallers target known Claude Code paths rather than performing broad filesystem deletion.
+The uninstall scripts:
 
-The installers use Anthropic's official installer endpoints. This project does not request, collect, or store your Claude credentials.
+* Ask for confirmation
+* Remove only known Claude Code locations
+* Avoid broad filesystem deletion
+* Don't automatically modify shell profiles
 
-For security-sensitive environments, review and pin a specific repository commit instead of executing a script fetched directly from the internet.
-
----
-
-# Development Setup
-
-If you want to contribute to this repository, clone it:
-
-```bash
-git clone https://github.com/YOUR_USERNAME/claude-code-toolkit.git
-cd claude-code-toolkit
-```
-
-No project dependencies are required for the shell scripts themselves.
-
-For local validation on macOS/Linux, install [ShellCheck](https://www.shellcheck.net/) and run:
-
-```bash
-shellcheck install/macos.sh uninstall/macos.sh doctor/macos.sh
-```
-
-For PowerShell scripts, use PowerShell 7 or Windows PowerShell and verify that the scripts parse correctly.
-
-GitHub Actions automatically validates the shell and PowerShell scripts on pushes and pull requests.
+The installation scripts use Anthropic's official Claude Code installer.
 
 ---
 
-# Contributing
+## Contributing
 
-Pull requests are welcome.
+Found a bug or have an improvement?
 
-Before submitting a change:
+Open an issue or submit a pull request.
 
-1. Keep scripts platform-specific.
-2. Avoid destructive wildcard deletion.
-3. Explain any new filesystem path before adding it to an uninstall script.
-4. Test changes on the target operating system.
-5. Update the README when behavior changes.
+Please test changes on the affected operating system before submitting a pull request.
 
 ---
 
-# License
+## License
 
-MIT. See [LICENSE](LICENSE).
-
-# Disclaimer
-
-This project is provided as-is. Claude Code and Anthropic are trademarks of Anthropic. This repository is an independent community project.
+MIT
