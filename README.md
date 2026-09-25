@@ -9,7 +9,7 @@ Simple scripts to install, uninstall, and diagnose Claude Code on **macOS, Linux
 Clone it:
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/claude-code-toolkit.git
+git clone https://github.com/pvsaravanan/claude-code-toolkit.git
 cd claude-code-toolkit
 ```
 
