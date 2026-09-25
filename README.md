@@ -15,28 +15,7 @@ cd claude-code-toolkit
 
 Or download the repository as a ZIP and extract it.
 
-### 2. Run the script for your OS
-
-**macOS**
-
-```bash
-chmod +x install/macos.sh && ./install/macos.sh
-```
-
-**Linux**
-
-```bash
-chmod +x install/linux.sh && ./install/linux.sh
-```
-
-**Windows PowerShell**
-
-```powershell
-Set-ExecutionPolicy -Scope Process Bypass
-.\install\windows.ps1
-```
-
-### 3. Verify
+### 2. Verify
 
 ```bash
 claude --version
