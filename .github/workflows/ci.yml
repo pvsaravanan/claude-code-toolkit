@@ -19,7 +19,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y shellcheck
 
       - name: Check shell scripts
-        run: shellcheck install/*.sh uninstall/*.sh doctor/*.sh
+        run: shellcheck install/*.sh update/*.sh uninstall/*.sh doctor/*.sh
 
   bash-syntax:
     name: Bash Syntax
@@ -30,7 +30,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Validate Bash scripts
-        run: bash -n install/*.sh uninstall/*.sh doctor/*.sh
+        run: bash -n install/*.sh update/*.sh uninstall/*.sh doctor/*.sh
 
   powershell:
     name: PowerShell Syntax
@@ -43,7 +43,7 @@ jobs:
       - name: Validate PowerShell scripts
         shell: pwsh
         run: |
-          Get-ChildItem -Path install, uninstall, doctor -Filter *.ps1 -Recurse |
+          Get-ChildItem -Path install, update, uninstall, doctor -Filter *.ps1 -Recurse |
             ForEach-Object {
               $errors = $null
               [System.Management.Automation.Language.Parser]::ParseFile(

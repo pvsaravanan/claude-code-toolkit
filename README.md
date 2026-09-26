@@ -1,6 +1,6 @@
 # claude code toolkit
 
-Simple scripts to install, uninstall, and diagnose Claude Code on **macOS, Linux, and Windows**.
+Simple scripts to install, update, uninstall, and diagnose Claude Code on **macOS, Linux, and Windows**.
 
 ## Quick Start
 
@@ -53,6 +53,32 @@ After installation:
 ```bash
 claude
 ```
+
+---
+
+## Update
+
+### macOS
+
+```bash
+chmod +x update/macos.sh
+./update/macos.sh
+```
+
+### Linux
+
+```bash
+chmod +x update/linux.sh
+./update/linux.sh
+```
+
+### Windows
+
+```powershell
+.\update\windows.ps1
+```
+
+The update scripts use Claude Code's official update command and verify the installed version afterward.
 
 ---
 
@@ -112,11 +138,11 @@ The diagnostic scripts check Claude Code, PATH, Node.js, npm, Git, and common in
 
 ## Supported Platforms
 
-| Platform | Install | Uninstall | Diagnose |
-| -------- | :-----: | :-------: | :------: |
-| macOS    |    ✓    |     ✓     |     ✓    |
-| Linux    |    ✓    |     ✓     |     ✓    |
-| Windows  |    ✓    |     ✓     |     ✓    |
+| Platform | Install | Update | Uninstall | Diagnose |
+| -------- | :-----: | :----: | :-------: | :------: |
+| macOS    |    ✓    |    ✓   |     ✓     |     ✓    |
+| Linux    |    ✓    |    ✓   |     ✓     |     ✓    |
+| Windows  |    ✓    |    ✓   |     ✓     |     ✓    |
 
 ---
 
